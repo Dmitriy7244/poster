@@ -26,3 +26,8 @@ Deno.test("delete", async () => {
   await poster.deletePostGroup(postGroupId)
   log("Post group deleted")
 })
+
+Deno.test("getPostMessageIds", async () => {
+  const ids = await poster.getPostMessageIds(channelIds[1], 1296)
+  log("Post messages found", { ids })
+})

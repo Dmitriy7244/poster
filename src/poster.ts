@@ -4,13 +4,19 @@ import { Dayjs, mongoose } from "./deps.ts"
 import PostManager from "./post_manager.ts"
 
 class Poster {
-  postMg: PostManager
+  private postMg: PostManager
 
   constructor(srcChatId: number) {
     this.postMg = new PostManager(srcChatId)
   }
 
-  async connect(mongoUrl: string) {
+  static async create(mongoUrl: string, srcChatId: number) {
+    const poster = new Poster(srcChatId)
+    await poster.connect(mongoUrl)
+    return poster
+  }
+
+  private async connect(mongoUrl: string) {
     await mongoose.connect(mongoUrl)
   }
 
@@ -36,6 +42,10 @@ class Poster {
     for (const postId of group.postIds) {
       await this.postMg.reschedulePost(postId, date)
     }
+  }
+
+  getPostMessageIds(chatId: number, messageId: number) {
+    return this.postMg.getPostMessageIds(chatId, messageId)
   }
 }
 

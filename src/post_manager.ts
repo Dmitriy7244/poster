@@ -9,11 +9,12 @@ class PostManager {
     this.userbot = createUserbotFromEnv()
   }
 
+  getPostMessageIds(chatId: number, messageId: number) {
+    return this.userbot.getPostMessages(chatId, messageId)
+  }
+
   async schedulePost(d: PostScheduleData) {
-    const messageIds = await this.userbot.getPostMessages(
-      this.chatId,
-      d.messageId,
-    )
+    const messageIds = await this.getPostMessageIds(this.chatId, d.messageId)
     const post = new Post()
     for (const chatId of d.chatIds) {
       post.addChatPost(
