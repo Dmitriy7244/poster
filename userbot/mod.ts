@@ -1,12 +1,11 @@
-import { env } from "./deps.ts"
+import { Env } from "./deps.ts"
 import Userbot from "./userbot.ts"
 
-function createUserbotFromEnv(
-  keys: { userbotUrl?: string; userbotToken?: string } = {},
-) {
+function createUserbotFromEnv(path = ".env") {
+  const env = new Env(path)
   return new Userbot(
-    env.str(keys.userbotUrl ?? "USERBOT_URL"),
-    env.str(keys.userbotToken ?? "USERBOT_TOKEN"),
+    env.get("USERBOT_URL"),
+    env.get("USERBOT_TOKEN"),
   )
 }
 

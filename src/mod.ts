@@ -1,12 +1,13 @@
-import { env } from "./deps.ts"
+import { createUserbotFromEnv, Env } from "./deps.ts"
 import Poster from "./poster.ts"
 
-function createPosterFromEnv(
-  keys: { mongoUrl?: string; srcChatId?: string } = {},
-) {
+function createPosterFromEnv(path = "poster.env") {
+  const env = new Env(path)
+  const userbot = createUserbotFromEnv(path)
   return Poster.create(
-    env.str(keys.mongoUrl ?? "MONGO_URL"),
-    env.int(keys.srcChatId ?? "SRC_CHAT_ID"),
+    env.get("MONGO_URL"),
+    env.getInt("SRC_CHAT_ID"),
+    userbot,
   )
 }
 

@@ -1,8 +1,8 @@
 {
   "tasks": {
-    "dev": "deno test -A tests/mod.ts",
-    "lint": "deno fmt && lint && deno check src/mod.ts",
-    "reload": "deno run -A --reload tests/mod.ts"
+    "dt": "deno test -A",
+    "lint": "deno fmt && deno lint && deno check src/mod.ts",
+    "reload": "deno run -A --reload src/deps.ts"
   },
   "fmt": {
     "semiColons": false

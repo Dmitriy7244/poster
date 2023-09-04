@@ -1,23 +1,23 @@
+import { connectToMongo, PostGroup } from "../db/mod.ts"
 import { PostScheduleData } from "./base.ts"
-import { PostGroup } from "./db.ts"
-import { Dayjs, mongoose } from "./deps.ts"
+import { Dayjs, Userbot } from "./deps.ts"
 import PostManager from "./post_manager.ts"
 
 class Poster {
   private postMg: PostManager
 
-  constructor(srcChatId: number) {
-    this.postMg = new PostManager(srcChatId)
+  constructor(srcChatId: number, userbot: Userbot) {
+    this.postMg = new PostManager(srcChatId, userbot)
   }
 
-  static async create(mongoUrl: string, srcChatId: number) {
-    const poster = new Poster(srcChatId)
+  static async create(mongoUrl: string, srcChatId: number, userbot: Userbot) {
+    const poster = new Poster(srcChatId, userbot)
     await poster.connect(mongoUrl)
     return poster
   }
 
-  private async connect(mongoUrl: string) {
-    await mongoose.connect(mongoUrl)
+  private async connect(mongoUrl?: string) {
+    await connectToMongo(mongoUrl)
   }
 
   async schedulePost(data: PostScheduleData, groupId?: string) {
@@ -26,7 +26,7 @@ class Poster {
     if (!groupId) group = new PostGroup()
     else group = await PostGroup.get(groupId)
     group.postIds.push(postId)
-    return await PostGroup.save(group)
+    return await group.save()
   }
 
   async deletePostGroup(id: string) {
@@ -34,7 +34,7 @@ class Poster {
     for (const postId of group.postIds) {
       await this.postMg.deletePost(postId)
     }
-    await group.deleteOne()
+    await group.delete()
   }
 
   async reschedulePostGroup(id: string, date: Dayjs) {

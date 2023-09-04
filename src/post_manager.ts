@@ -1,13 +1,9 @@
+import { Post } from "../db/mod.ts"
 import { PostScheduleData } from "./base.ts"
-import { Post } from "./db.ts"
-import { createUserbotFromEnv, Dayjs, Userbot } from "./deps.ts"
+import { Dayjs, Userbot } from "./deps.ts"
 
 class PostManager {
-  userbot: Userbot
-
-  constructor(private chatId: number) {
-    this.userbot = createUserbotFromEnv()
-  }
+  constructor(private chatId: number, private userbot: Userbot) {}
 
   getPostMessageIds(chatId: number, messageId: number) {
     return this.userbot.getPostMessages(chatId, messageId)
@@ -37,7 +33,7 @@ class PostManager {
     for (const p of post.chatPosts) {
       await this.userbot.deletePost(p.chatId, p.messageIds)
     }
-    await post.deleteOne()
+    await post.delete()
   }
 
   async reschedulePost(id: string, date: Dayjs) {
