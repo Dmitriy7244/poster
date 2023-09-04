@@ -1,3 +1,4 @@
+import { PostScheduleData } from "./base.ts"
 import { createUserbotFromEnv, Env } from "./deps.ts"
 import Poster from "./poster.ts"
 
@@ -11,4 +12,4 @@ function createPosterFromEnv(path = "poster.env") {
   )
 }
 
-export { createPosterFromEnv, Poster }
+export { createPosterFromEnv, Poster, PostScheduleData }
