@@ -1,4 +1,4 @@
-import { createClient, Document } from "./deps.ts"
+import { connectClient, Document, DocumentRepo } from "./deps.ts"
 
 class ChatPost extends Document {
   constructor(public chatId: number, public messageIds: number[]) {
@@ -23,8 +23,20 @@ class Post extends Document {
   }
 }
 
+const chatPostRepo = new DocumentRepo(ChatPost)
+const postRepo = new DocumentRepo(Post)
+const postGroupRepo = new DocumentRepo(PostGroup)
+
 async function connectToMongo(mongoUrl?: string) {
-  await createClient([ChatPost, Post, PostGroup], mongoUrl)
+  await connectClient([chatPostRepo, postRepo, postGroupRepo], mongoUrl)
 }
 
-export { ChatPost, connectToMongo, Post, PostGroup }
+export {
+  ChatPost,
+  chatPostRepo,
+  connectToMongo,
+  Post,
+  PostGroup,
+  postGroupRepo,
+  postRepo,
+}

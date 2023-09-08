@@ -1,4 +1,4 @@
-import { connectToMongo, PostGroup } from "../db/mod.ts"
+import { connectToMongo, PostGroup, postGroupRepo } from "../db/mod.ts"
 import { PostScheduleData } from "./base.ts"
 import { Dayjs, Userbot } from "./deps.ts"
 import PostManager from "./post_manager.ts"
@@ -24,21 +24,21 @@ class Poster {
     const postId = await this.postMg.schedulePost(data)
     let group: PostGroup
     if (!groupId) group = new PostGroup()
-    else group = await PostGroup.get(groupId)
+    else group = await postGroupRepo.get(groupId)
     group.postIds.push(postId)
-    return await group.save()
+    return await postGroupRepo.save(group)
   }
 
   async deletePostGroup(id: string) {
-    const group = await PostGroup.get(id)
+    const group = await postGroupRepo.get(id)
     for (const postId of group.postIds) {
       await this.postMg.deletePost(postId)
     }
-    await group.delete()
+    await postGroupRepo.delete(group)
   }
 
   async reschedulePostGroup(id: string, date: Dayjs) {
-    const group = await PostGroup.get(id)
+    const group = await postGroupRepo.get(id)
     for (const postId of group.postIds) {
       await this.postMg.reschedulePost(postId, date)
     }

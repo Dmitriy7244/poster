@@ -1,4 +1,4 @@
-import { Post } from "../db/mod.ts"
+import { Post, postRepo } from "../db/mod.ts"
 import { PostScheduleData } from "./base.ts"
 import { Dayjs, Userbot } from "./deps.ts"
 
@@ -25,19 +25,19 @@ class PostManager {
         ),
       )
     }
-    return await post.save()
+    return await postRepo.save(post)
   }
 
   async deletePost(id: string) {
-    const post = await Post.get(id)
+    const post = await postRepo.get(id)
     for (const p of post.chatPosts) {
       await this.userbot.deletePost(p.chatId, p.messageIds)
     }
-    await post.delete()
+    await postRepo.delete(post)
   }
 
   async reschedulePost(id: string, date: Dayjs) {
-    const post = await Post.get(id)
+    const post = await postRepo.get(id)
     for (const p of post.chatPosts) {
       await this.userbot.reschedulePost(p.chatId, p.messageIds, date.unix())
     }

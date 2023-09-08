@@ -1,4 +1,5 @@
 export {
-  createClient,
+  connectClient,
   Document,
-} from "https://raw.githubusercontent.com/Dmitriy7244/mongo-orm/master/src/mod.ts"
+  DocumentRepo,
+} from "https://raw.githubusercontent.com/Dmitriy7244/mongo-orm/v0.1.1/src/mod.ts"

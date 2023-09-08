@@ -1,6 +1,6 @@
 {
   "tasks": {
-    "dt": "deno test -A",
+    "test": "deno test -A",
     "lint": "deno fmt && deno lint && deno check src/mod.ts",
     "reload": "deno run -A --reload src/deps.ts"
   },

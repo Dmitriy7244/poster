@@ -44,7 +44,12 @@
     "https://raw.githubusercontent.com/Dmitriy7244/deno-std/main/src/env.ts": "8165ef1866ba0af2ddc86605f81f4906d2a21db92d789ff46d8f6a2e20ad0eb2",
     "https://raw.githubusercontent.com/Dmitriy7244/deno-std/main/src/mod.ts": "8bab79bd88e8a9809dfe27806673cb3c2964f63f9085785cb1f248a0fd4ba7f6",
     "https://raw.githubusercontent.com/Dmitriy7244/mongo-orm/master/src/deps.ts": "c60e0f00903a29c3a7ec34f460735526d82b360f1319c22f7a69aefe61f28107",
-    "https://raw.githubusercontent.com/Dmitriy7244/mongo-orm/master/src/mod.ts": "9990567291e635a5fe5c63ca0790901511bb1f28e819413ded3058c319c2c07d"
+    "https://raw.githubusercontent.com/Dmitriy7244/mongo-orm/master/src/mod.ts": "9990567291e635a5fe5c63ca0790901511bb1f28e819413ded3058c319c2c07d",
+    "https://raw.githubusercontent.com/Dmitriy7244/mongo-orm/v0.1.1/src/deps.ts": "f4b8299c024117d89fdb4fac5d03086fb09bfffb0e2983b19f7627a0ee310f5d",
+    "https://raw.githubusercontent.com/Dmitriy7244/mongo-orm/v0.1.1/src/documentRepo/layer0.ts": "f8ee7d57b23f0ba0c3091eb29ba49a40d2c586c2120660bc199a9d92644f0a1d",
+    "https://raw.githubusercontent.com/Dmitriy7244/mongo-orm/v0.1.1/src/documentRepo/layer1.ts": "21e2a9d1e036c5c1d347247e553506385aaf5fde15ca5c743a0d861c84218a14",
+    "https://raw.githubusercontent.com/Dmitriy7244/mongo-orm/v0.1.1/src/documentRepo/mod.ts": "cbecea45368dbfc56601e3679a5c211cfec4bb7b64f72b89d88e12056f014de4",
+    "https://raw.githubusercontent.com/Dmitriy7244/mongo-orm/v0.1.1/src/mod.ts": "a7d26a8f0552ee28b42166af9d6aadff31cbfd60544abb34f19cf0c867058be1"
   },
   "npm": {
     "specifiers": {
