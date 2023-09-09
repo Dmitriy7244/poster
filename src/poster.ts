@@ -1,4 +1,11 @@
-import { connectToMongo, PostGroup, postGroupRepo } from "../db/mod.ts"
+import {
+  Buttons,
+  connectToMongo,
+  getLastPost,
+  PostGroup,
+  postGroupRepo,
+  postRepo,
+} from "../db/mod.ts"
 import { PostScheduleData } from "./base.ts"
 import { Dayjs, Userbot } from "./deps.ts"
 import PostManager from "./post_manager.ts"
@@ -20,6 +27,7 @@ class Poster {
     await connectToMongo(mongoUrl)
   }
 
+  // TODO: get text from messages by userbot
   async schedulePost(data: PostScheduleData, groupId?: string) {
     const postId = await this.postMg.schedulePost(data)
     let group: PostGroup
@@ -46,6 +54,18 @@ class Poster {
 
   getPostMessageIds(chatId: number, messageId: number) {
     return this.postMg.getPostMessageIds(chatId, messageId)
+  }
+
+  async getPostButtons(postText: string) {
+    const post = await postRepo.tryFindLast({ text: postText })
+    if (!post) return
+    return post.buttons // TODO: check with empty list
+  }
+
+  async setPostButtons(postGroupId: string, buttons: Buttons) {
+    const post = await getLastPost(postGroupId)
+    post.buttons = buttons
+    await postRepo.save(post)
   }
 }
 

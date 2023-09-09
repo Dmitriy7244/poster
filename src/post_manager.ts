@@ -11,7 +11,7 @@ class PostManager {
 
   async schedulePost(d: PostScheduleData) {
     const messageIds = await this.getPostMessageIds(this.chatId, d.messageId)
-    const post = new Post()
+    const post = new Post([], d.text, d.buttons)
     for (const chatId of d.chatIds) {
       post.addChatPost(
         chatId,

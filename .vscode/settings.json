@@ -3,7 +3,7 @@
   "deno.lint": true,
   "deno.unstable": true,
   "files.exclude": {
-    "**/__pycache__": false,
-    "temp": false
+    "**/__pycache__": true,
+    "temp": true
   }
 }

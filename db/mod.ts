@@ -12,8 +12,15 @@ class PostGroup extends Document {
   }
 }
 
+type Button = { text: string; url: string }
+type Buttons = Button[][]
+
 class Post extends Document {
-  constructor(public chatPosts: ChatPost[] = []) {
+  constructor(
+    public chatPosts: ChatPost[] = [],
+    public text?: string,
+    public buttons?: Buttons,
+  ) {
     super()
   }
 
@@ -31,10 +38,18 @@ async function connectToMongo(mongoUrl?: string) {
   await connectClient([chatPostRepo, postRepo, postGroupRepo], mongoUrl)
 }
 
+async function getLastPost(postGroupId: string) {
+  const group = await postGroupRepo.get(postGroupId)
+  const postId = group.postIds[group.postIds.length - 1]
+  return await postRepo.get(postId)
+}
+
 export {
+  type Buttons,
   ChatPost,
   chatPostRepo,
   connectToMongo,
+  getLastPost,
   Post,
   PostGroup,
   postGroupRepo,
